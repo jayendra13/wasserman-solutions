@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{pgfplots}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\pgfplotsset{soldot/.style={color=blue,only marks,mark=*}}
+\pgfplotsset{holdot/.style={color=blue,fill=white,only marks,mark=*}}
+\begin{document}
+
+\begin{enumerate}
+
+\item Show that
+  \[P(X=x)=F(x^+)-F(x^-).\]
+
+\item Let $X$ be such that $P(X=2)=P(X=3)=1/10$ and $P(X=5)=8/10$. Plot the $CDF$ $F$.
+Use $F$ to find $P(2<X\le4.8)$ and $P(2 \le X \le 4.8)$.
+
+\begin{tabular}{c|c c}
+  x & P(X=x) & $F_X(x)$ \\
+  \hline
+  2 & 1/10 & 1/10 \\
+  3 & 1/10 & 2/10 \\
+  5 & 8/10 & 10/10 \\
+\end{tabular}
+
+\begin{tikzpicture}
+\begin{axis}
+\addplot[domain=-5:2,blue] {0};
+\addplot[domain=2:3,blue] {0.1};
+\addplot[domain=3:5,blue] {0.2};
+\addplot[domain=5:10,blue] {1};
+\draw[dotted] (axis cs:2,0) -- (axis cs:2,0.1);
+\draw[dotted] (axis cs:3,0.1) -- (axis cs:3,0.2);
+\draw[dotted] (axis cs:5,0.2) -- (axis cs:5,1);
+\addplot[holdot] coordinates{(2,0)(3,0.1)(5,0.2)};
+\addplot[soldot] coordinates{(2,0.1)(3,0.2)(5,1)};
+\end{axis}
+\end{tikzpicture}
+
+\begin{align*}
+P(2<X\le4.8) & = P(X>2) \cdot P(X\le4.8)
+\\&= \big\{1 - P(X\le2) \big\} \cdot P(X\le4.8)
+\\&= \big\{1 - F_X(2) \big\} \cdot F_X(4.8)
+\\&= \big\{1 - 1/10 \big\} \cdot 2/10
+\\&= 18/100
+\end{align*}
+
+\begin{align*}
+P(2 \le X\le4.8) & = P(X \ge 2) \cdot P(X\le4.8)
+\\&= \big\{P(X>2) + P(X=2)\big\} \cdot P(X\le4.8)
+\\&= \big\{ 1 - P(X\le2) + P(X=2) \big\} \cdot P(X\le4.8)
+\\&= \big\{1 - F_X(2) + P(X=2)\big\} \cdot F_X(4.8)
+\\&= \big\{1 - 1/10 + 1/10\big\} \cdot 2/10
+\\&= 2/10
+\end{align*}
+
+$\mathbb{P}$
+
+\item Prove Lemma 2.15.
+\end{enumerate}
+\end{document}
